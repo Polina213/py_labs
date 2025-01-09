@@ -5,19 +5,22 @@ class Toy:
     Атрибуты:
         - name: название игрушки
         - age: рекомендуемый возраст для игры с игрушкой
+         - in_stock: True если игрушка есть в наличии, False если нет
     """
 
-    def init(self, name: str, age: int) -> None:
+    def __init__(self, name: str, age: int, in_stock: bool = True) -> None:
         """
         Инициализирует игрушку с названием и рекомендуемым возрастом.
 
         :param name: название игрушки
         :param age: рекомендуемый возраст для игры с игрушкой
+        :param in_stock: True если игрушка есть в наличии, False если нет
         """
         self.name = name
         self.age = age
+        self.in_stock = in_stock
 
-    def str(self) -> str:
+    def __str__(self) -> str:
         """
         Возвращает строковое представление игрушки.
 
@@ -25,13 +28,13 @@ class Toy:
         """
         return f"{self.name}, для детей от {self.age} лет."
 
-    def repr(self) -> str:
+    def __repr__(self) -> str:
         """
         Возвращает официальное строковое представление игрушки.
 
         :return: строка, которая может быть использована для создания нового объекта
         """
-        return f"Toy(name='{self.name}', age={self.age})"
+        return f"Toy(name='{self.name}', age={self.age}, in_stock={self.in_stock})"
 
     def play(self) -> str:
         """
@@ -42,6 +45,14 @@ class Toy:
         :return: строка с информацией о том, как играть с игрушкой
         """
         return f"Играй с игрушкой {self.name}!"
+
+    def availability(self) -> str:
+        """
+        Возвращает информацию о наличии игрушки.
+
+        :return: строка с информацией о наличии игрушки
+        """
+        return f"Игрушка {self.name} {'в наличии' if self.in_stock else 'нет в наличии'}."
 
 
 class Doll(Toy):
@@ -54,11 +65,11 @@ class Doll(Toy):
         - accessories: наличие аксессуаров для куклы
     """
 
-    def init(self, name: str, age: int, accessories: bool = True) -> None:
-        super().init(name, age)
+    def __init__(self, name: str, age: int, accessories: bool = True, in_stock: bool = True) -> None:
+        super().__init__(name, age, in_stock)
         self.accessories = accessories
 
-    def str(self) -> str:
+    def __str__(self) -> str:
         """
         Возвращает строковое представление куклы.
 
@@ -66,13 +77,13 @@ class Doll(Toy):
         """
         return f"{self.name} - кукла, для детей от {self.age} лет, аксессуары {'идут в комплекте' if self.accessories else 'не идут в комплекте'}"
 
-    def repr(self) -> str:
+    def __repr__(self) -> str:
         """
         Возвращает официальное строковое представление куклы.
 
         :return: строка, которая может быть использована для создания нового объекта
         """
-        return f"Doll(name='{self.name}', age={self.age}, accessories={self.accessories})"
+        return f"Doll(name='{self.name}', age={self.age}, accessories={self.accessories}, in_stock={self.in_stock}))"
 
     def play(self) -> str:
         """
@@ -93,11 +104,11 @@ class Lego(Toy):
         - pieces_count: количество деталей в наборе
     """
 
-    def init(self, name: str, age: int, pieces_count: int) -> None:
-        super().init(name, age)
+    def __init__(self, name: str, age: int, pieces_count: int, in_stock: bool = True) -> None:
+        super().__init__(name, age, in_stock)
         self.pieces_count = pieces_count
 
-    def str(self) -> str:
+    def __str__(self) -> str:
         """
         Возвращает строковое представление конструктора Lego.
 
@@ -105,13 +116,13 @@ class Lego(Toy):
         """
         return f"{self.name} - конструктор, для детей от {self.age} лет, {self.pieces_count} деталей"
 
-    def repr(self) -> str:
+    def __repr__(self) -> str:
         """
         Возвращает официальное строковое представление конструктора Lego.
 
         :return: строка, которая может быть использована для создания нового объекта
         """
-        return f"Lego(name='{self.name}', age={self.age}, pieces_count={self.pieces_count})"
+        return f"Lego(name='{self.name}', age={self.age}, pieces_count={self.pieces_count}, in_stock={self.in_stock})"
 
     def play(self) -> str:
         """
@@ -120,4 +131,10 @@ class Lego(Toy):
         :return: строка с информацией о том, как играть с конструктором Lego
         """
         return f"Играй с конструктором {self.name}, собирай различные модели и развивай свою фантазию!"
-        
+
+
+# Пример использования метода availability
+doll = Doll("Анабель", 5, accessories=False)
+print(doll.availability())  # Вывод: Игрушка Анабель в наличии.
+doll = Doll("Барби", 8, accessories=True, in_stock=False)
+print(doll.availability())  # Вывод: Игрушка Барби нет в наличии.
