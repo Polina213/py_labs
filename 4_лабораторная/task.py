@@ -52,7 +52,10 @@ class Toy:
 
         :return: строка с информацией о наличии игрушки
         """
-        return f"Игрушка {self.name} {'в наличии' if self.in_stock else 'нет в наличии'}."
+        if self.in_stock:
+            return f"Игрушка '{self.name}' в наличии."
+        else:
+            return f"Игрушки '{self.name}' нет в наличии."
 
 
 class Doll(Toy):
@@ -135,6 +138,6 @@ class Lego(Toy):
 
 # Пример использования метода availability
 doll = Doll("Анабель", 5, accessories=False)
-print(doll.availability())  # Вывод: Игрушка Анабель в наличии.
+print(doll.availability())  # Вывод: Игрушка 'Анабель' в наличии.
 doll = Doll("Барби", 8, accessories=True, in_stock=False)
-print(doll.availability())  # Вывод: Игрушка Барби нет в наличии.
+print(doll.availability())  # Вывод: Игрушки 'Барби' нет в наличии.
